@@ -2,7 +2,7 @@
 
 {EPITECH.} first year project.
 
-This project consist of:
+This project consists of:
  - A server that receives data in binary format
  - A client that takes a string as argument, translates it to binary & sends it to the server
 
