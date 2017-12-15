@@ -12,27 +12,30 @@ SERVER	 = server/server
 CLIENT	 = client/client
 
 IDIR	 = include/
+IDIR_MY	 = lib/my/include/
 
 LIB	 = libmy.a
 LNAME	 = my
-LDIR	 = lib/my
+LDIR	 = lib/my/
 
 CC	 = gcc
-CFLAGS	+= -I $(IDIR)
+CFLAGS	+= -I $(IDIR) -I $(IDIR_MY)
 CFLAGS	+= -Wall -Wextra
 CFLAGS	+= -Wpedantic -Wno-long-long
 CFLAGS	+= -Werror
 
-SDIR_SRV = server/src/
-SRCS_SRV = $(SDIR_SRV)get_packet.c			\
-	   $(SDIR_SRV)letter.c				\
-	   $(SDIR_SRV)main.c				\
-	   $(SDIR_SRV)my_realloc.c			\
-	   $(SDIR_SRV)signal.c
+SRCS_SRV_DIR	= server/src/
+SRCS_SRV_FILES	= get_packet.c		\
+		  letter.c		\
+		  main.c		\
+		  my_realloc.c		\
+		  signal.c
+SRCS_SRV	= $(addprefix $(SRCS_SRV_DIR), $(SRCS_SRV_FILES))
 
-SDIR_CLT = client/src/
-SRCS_CLT = $(SDIR_CLT)main.c				\
-	   $(SDIR_CLT)send.c
+SRCS_CLT_DIR	= client/src/
+SRCS_CLT_FILES	= main.c	\
+		  send.c
+SRCS_CLT	= $(addprefix $(SRCS_CLT_DIR), $(SRCS_CLT_FILES))
 
 OBJS_SRV = $(SRCS_SRV:.c=.o)
 OBJS_CLT = $(SRCS_CLT:.c=.o)
@@ -43,21 +46,21 @@ RM	 = rm -f
 all: $(LIB) $(SERVER) $(CLIENT)
 
 $(LIB):
-	cd $(LDIR) && $(MAKE)
+	make -C $(LDIR)
 
 $(SERVER): $(OBJS_SRV)
-	$(CC) -o $(SERVER) $(OBJS_SRV) -L lib -l $(LNAME)
+	$(CC) -o $(SERVER) $(OBJS_SRV) -L $(LDIR) -l $(LNAME)
 
 $(CLIENT): $(OBJS_CLT)
-	$(CC) -o $(CLIENT) $(OBJS_CLT) -L lib -l $(LNAME)
+	$(CC) -o $(CLIENT) $(OBJS_CLT) -L $(LDIR) -l $(LNAME)
 
 clean:
 	$(RM) $(OBJS_SRV) $(OBJS_CLT)
-	cd $(LDIR) && $(MAKE) clean
+	make -C $(LDIR) clean
 
 fclean: clean
 	$(RM) $(SERVER) $(CLIENT)
-	cd $(LDIR) && $(MAKE) fclean
+	make -C $(LDIR) fclean
 
 re: fclean all
 

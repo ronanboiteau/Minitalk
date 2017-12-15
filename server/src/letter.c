@@ -1,18 +1,8 @@
-/*
-** letter.c for minitalk in /home/boitea_r
-** 
-** Made by Ronan Boiteau
-** Login   <boitea_r@epitech.net>
-** 
-** Started on  Mon Feb  1 01:27:44 2016 Ronan Boiteau
-** Last update Sat Feb 20 21:26:22 2016 Ronan Boiteau
-*/
-
+#include <signal.h>
+#include <stdlib.h>
 #include "my.h"
 #include "colors.h"
 #include "server.h"
-#include <signal.h>
-#include <stdlib.h>
 
 char		_get_char(t_server *data)
 {
@@ -34,7 +24,7 @@ char		_get_char(t_server *data)
 
 char		*_update_buf(char *buffer, int idx_buf)
 {
-  buffer[idx_buf] = C_NUL;
+  buffer[idx_buf] = '\0';
   if (idx_buf % BUFF == 0)
     buffer = my_realloc(buffer, BUFF * ((idx_buf / BUFF) + 1));
   return (buffer);

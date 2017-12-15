@@ -1,19 +1,10 @@
-/*
-** server.h for minitalk in /home/boitea_r
-** 
-** Made by Ronan Boiteau
-** Login   <boitea_r@epitech.net>
-** 
-** Started on  Mon Feb  1 01:25:43 2016 Ronan Boiteau
-** Last update Sat Feb 20 21:26:38 2016 Ronan Boiteau
-*/
-
 #ifndef SERVER_H_
 # define SERVER_H_
 
 # include <sys/types.h>
 
 # define BUFF (320)
+# define EOT (4)
 
 typedef struct	s_server
 {

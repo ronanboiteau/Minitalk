@@ -1,19 +1,10 @@
-/*
-** main.c for minitalk in /home/boitea_r
-** 
-** Made by Ronan Boiteau
-** Login   <boitea_r@epitech.net>
-** 
-** Started on  Tue Jan 26 22:32:11 2016 Ronan Boiteau
-** Last update Sun Feb 21 00:40:24 2016 Ronan Boiteau
-*/
-
+#include <signal.h>
+#include <stdbool.h>
+#include <stdlib.h>
+#include <unistd.h>
 #include "my.h"
 #include "colors.h"
 #include "server.h"
-#include <signal.h>
-#include <stdlib.h>
-#include <unistd.h>
 
 char		g_signal;
 
@@ -21,15 +12,15 @@ static void	_init_server(t_server *data)
 {
   if (signal(SIGUSR1, _signal_catcher) == SIG_ERR
       || signal(SIGUSR2, _signal_catcher) == SIG_ERR)
-    my_exit(EXIT_FAILURE, "ERROR: Can't initiate signal handler." EOL);
+    my_exit(EXIT_FAILURE, "ERROR: Can't initiate signal handler.\n");
   g_signal = 0;
   if ((data->buffer = malloc(sizeof(char) * (BUFF + 1))) == NULL)
-    my_exit(EXIT_FAILURE, "ERROR: Out of memory! malloc() failed" EOL);
+    my_exit(EXIT_FAILURE, "ERROR: Out of memory! malloc() failed\n");
   data->pid_client = 0;
   data->idx_pid = 0;
   data->idx_buf = 0;
   data->idx = 0;
-  my_printf("Server ready! PID: %i" EOL, getpid());
+  my_printf("Server ready! PID: %i\n", getpid());
   return ;
 }
 
@@ -48,14 +39,14 @@ static void	_print_buff(t_server *data)
   data->idx_buf = 0;
   free(data->buffer);
   if ((data->buffer = malloc(sizeof(char) * (BUFF + 1))) == NULL)
-    my_exit(EXIT_FAILURE, "ERROR: Out of memory! malloc() failed" EOL);
+    my_exit(EXIT_FAILURE, "ERROR: Out of memory! malloc() failed\n");
   return ;
 }
 
 static void	_acknowledge(int pid, int tmp)
 {
   if (tmp == 0 && kill(pid, SIGUSR1) == -1)
-    my_exit(EXIT_FAILURE, B_RED EOL "ERROR: Client lost!" EOL RESET);
+    my_exit(EXIT_FAILURE, B_RED "\nERROR: Client lost!\n" RESET);
   return ;
 }
 
@@ -73,7 +64,7 @@ int		main(void)
   int		tmp;
 
   _init_server(&data);
-  while (TRUE)
+  while (true)
     {
       tmp = _wait_for_signal();
       if (data.idx_pid < 23)
