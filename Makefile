@@ -1,13 +1,3 @@
-##
-## Makefile for minitalk in /home/boitea_r
-## 
-## Made by Ronan Boiteau
-## Login   <boitea_r@epitech.net>
-## 
-## Started on  Tue Jan 26 22:38:14 2016 Ronan Boiteau
-## Last update Sat Feb 20 21:27:23 2016 Ronan Boiteau
-##
-
 SERVER	 = server/server
 CLIENT	 = client/client
 
