@@ -32,7 +32,3 @@ You can run `make client` to compile the client only, or `make server` to compil
  ```
  ./client/client [SERVER PID] [MESSAGE]
  ```
-
-## Author
-
-* **Ronan Boiteau** ([GitHub](https://github.com/ronanboiteau) / [LinkedIn](https://www.linkedin.com/in/ronanboiteau/))
